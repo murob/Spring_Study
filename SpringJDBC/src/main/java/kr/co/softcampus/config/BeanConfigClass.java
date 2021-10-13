@@ -14,20 +14,21 @@ public class BeanConfigClass {
 	@Bean
 	public BasicDataSource source() {
 		BasicDataSource source = new BasicDataSource();
-		source.setDriverClassName("org.h2.Driver");
-		source.setUrl("jdbc:h2:~/test");
-		source.setUsername("sa");
-		source.setPassword(null);
+		source.setDriverClassName("oracle.jdbc.OracleDriver");
+		source.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		source.setUsername("scott");
+		source.setPassword("1234");
 		
 		return source;
 	}
 	
-	// 데이터베이스에 접속해서 쿼리를 전달하는 빈을 등록한다.
+	// 데이터베이스에 접속해서 쿼리를 전달하는 빈을 등록한다.(statement, preparedstatement역할인듯)
 	@Bean
 	public JdbcTemplate db(BasicDataSource source) {
-		JdbcTemplate db = new JdbcTemplate(source);
+		// 데이터 소스(접속정보를 가지고 있는 객체 - DBCP)
+		JdbcTemplate db = new JdbcTemplate(source);//BasicDataSource의 데이터베이스 연결을 가지고 JdbcTemplate을 생성함.
 		
-		return db;
+		return db;//이걸통해 디비에 쿼리문을 전달할 수 있게된다.
 	}
 
 }

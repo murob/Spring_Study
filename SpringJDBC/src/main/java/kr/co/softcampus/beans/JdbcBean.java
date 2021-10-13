@@ -22,6 +22,4 @@ public class JdbcBean {
 	public void setStr_data(String str_data) {
 		this.str_data = str_data;
 	}
-	
-	
 }
